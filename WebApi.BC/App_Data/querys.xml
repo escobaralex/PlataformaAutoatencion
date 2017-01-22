@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Query>
+  <GetArticulos>
+  SELECT TOP 10 AR_CODART,AR_DESART
+  FROM MAEART
+  WHERE AR_ACTIVO = 1
+</GetArticulos>
+  <SearchArticulos>
+    SELECT TOP 10 AR_CODART,AR_DESART
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_DESART LIKE '%{0}%' OR  AR_CODART LIKE '%{0}%'
+  </SearchArticulos>
+  
+  <GetStockArticulos>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART),0))
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+  </GetStockArticulos>
+  <GetStockArticulo>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART),0))
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_CODART = '{0}'
+  </GetStockArticulo>
+
+  <GetStockArticulosEnBodega>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART AND sd1_codbod IN ({0})),0)  )
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+  </GetStockArticulosEnBodega>
+  <GetStockArticuloEnBodega>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART AND sd1_codbod IN ({0})),0)  )
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_CODART = '{1}'
+  </GetStockArticuloEnBodega>
+  
+  <GetBodegas>
+    SELECT tb_codtab, tb_destab FROM MAETAB
+    WHERE tb_tiptab = 18 AND tb_codtab &lt; &gt; 0
+  </GetBodegas>
+
+</Query>

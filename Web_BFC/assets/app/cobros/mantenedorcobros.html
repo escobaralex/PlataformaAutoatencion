@@ -1,0 +1,71 @@
+﻿<div class="container-fluid" ng-controller="MantenedorCobrosController">
+
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Mantenedor de Cobros</h1>
+        <div class="container-fluid">
+            <form class="form-inline" novalidate>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br />
+                        <div class="form-group col-md-3">
+                            <label for="valor">Metro Cuadrado</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" aria-label="..." name="cobroDefault" value="metroCuadrado" ng-model="valoresCobro.valorDefault">
+                                </span>
+                                <input type="text" class="form-control text-right" ng-model="valoresCobro.metroCuadrado"
+                                       only-numbers ng-disabled="formDisabled">
+                                <div class="input-group-addon">UF</div>
+                            </div>
+                            <span class="success ng-hide" ng-show="valoresCobro.valorDefault=='metroCuadrado'">Cobro pre-establecido</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="valor">Metro Cubico</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" aria-label="..." name="cobroDefault" value="metroCubico" ng-model="valoresCobro.valorDefault">
+                                </span>
+                                <input type="text" class="form-control text-right"  ng-model="valoresCobro.metroCubico"
+                                       only-numbers ng-disabled="formDisabled">
+                                <div class="input-group-addon">UF</div>                                
+                            </div>
+                            <span class="success ng-hide" ng-show="valoresCobro.valorDefault=='metroCubico'">Cobro pre-establecido</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="valor">Posición Palet</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" aria-label="..." name="cobroDefault" value="posicionPalet" ng-model="valoresCobro.valorDefault">
+                                </span>
+                                <input type="text" class="form-control text-right"  ng-model="valoresCobro.posicionPalet"
+                                       only-numbers ng-disabled="formDisabled">
+                                <div class="input-group-addon">UF</div>
+                            </div>
+                            <span class="success ng-hide" ng-show="valoresCobro.valorDefault=='posicionPalet'">Cobro pre-establecido</span>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label for="valor" style="color:transparent">.</label>
+                            <button type="submit" class="btn btn-success" ng-disabled="isGuardar" ng-click="save()"
+                                    button-spinner="isGuardar" spinner-icon="fa fa-spinner fa-spin">
+                                {{ formDisabled ? 'Buscando valor...' : 'Guardar Valores' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="alert alert-info" role="alert">
+
+                            <span class="badge" style="background-color:rgba(27, 121, 254, 1); margin-right:20px">
+                                <i class="fa fa-info">
+                                </i>
+                            </span>
+                            <span>Seleccione la forma de cobro pre-establecida e indiqué los valores en Unidades de Fomento por cada forma de almacenaje.</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- /container -->

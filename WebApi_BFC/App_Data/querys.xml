@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GetArticulos>
+  SELECT AR_CODART,AR_DESART
+  FROM MAEART
+  WHERE AR_ACTIVO = 1
+</GetArticulos>

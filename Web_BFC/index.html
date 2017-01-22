@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="es" ng-app="app">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- TAGS SEO -->
+    <title>Bevfood Center - Gestión Web</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <meta name="keywords" content="">
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <link rel="canonical" href="" />
+    <!-- FIN TAGS SEO -->  
+	<script type="application/javascript">
+        function getIP(json) {
+          miIP = json.ip;
+        };
+    </script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+    <script src="assets/lib/alaSql/xlsx.core.min.js"></script>
+    <script src="assets/lib/alaSql/alasql-worker.min.js"></script>
+    <script src="assets/lib/alaSql/alasql.min.js"></script>
+
+
+    <link href="assets/css/normalize.css" rel="stylesheet" />  
+    <!-- Bootstrap core CSS -->
+    <link href="assets/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/lib/bootstrap/ie10-viewport-bug-workaround.css" rel="stylesheet" /> 
+    <link href="assets/lib/ui/toaster/toaster.css" rel="stylesheet" />  
+    <link href="assets/lib/ui/ui-select/select.css" rel="stylesheet" />  
+    <link href="assets/lib/ui/ui-grid/ui-grid-stable.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">-->
+    <link href="assets/lib/ui/cgBusy/angular-busy.css" rel="stylesheet" />
+    <link href="assets/lib/angular/angular-animate.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <link href="assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/lib/ui/angular-loading-bar/loading-bar.css" rel="stylesheet" />
+
+    <link href="assets/lib/ui/datepicker/datetimepicker.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="assets/css/main.css" rel="stylesheet" />      
+    <script type="text/ng-template" id="confirmar.html">
+
+        <div class="modal-header">
+            <h3 class="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <p>{{ texto }}</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="aceptar()">Aceptar</button> <!--|| !bform.form.$valid || !bform.form2.$valid-->
+            <button class="btn btn-default" type="button" ng-click="cancelar()">Cancelar</button>
+            <div class="col-md-7 alert-danger ng-hide" role="alert" ng-show="mensaje != undefined && mensaje.length > 2">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                {{mensaje}}
+            </div>
+        </div>
+    </script>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://bevfoodcenter.cl/">BEVFOOD CENTER</a>
+            </div>
+            <div ui-view="menu"></div>            
+        </div>
+    </nav>
+    <!--<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>-->
+    <toaster-container></toaster-container>
+    <div ui-view="content"></div>
+    <script src="assets/lib/bootstrap/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="assets/lib/bootstrap/jquery.min.js"></script>    
+    <script>window.jQuery || document.write('<script src="assets/lib/bootstrap/jquery.min.js"><\/script>')</script>
+    <script src="assets/lib/bootstrap/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/lib/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="assets/lib/tableExport/jquery.base64.js"></script>
+    <script src="assets/lib/tableExport/tableExport.js"></script>
+    <script src="assets/lib/ui/moment-with-locale.min.js"></script>
+
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <!-- ANGULAR -->
+    <script src="assets/lib/angular/angular.js"></script>
+    <script src="assets/lib/angular/angular-animate.js"></script>
+    <script src="assets/lib/angular/angular-messages.js"></script>
+    <script src="assets/lib/angular/angular-sanitize.js"></script>
+    <script src="assets/lib/angular/angular-ui-router.js"></script>
+    <script src="assets/lib/angular/angular-local-storage.min.js"></script>
+    <script src="assets/lib/angular/angular-translate.min.js"></script>
+    <script src="assets/lib/angular/angular-jwt/angular-jwt.js"></script>
+    <script src="assets/lib/angular/angular-locale_es-es.js"></script>    
+    <script src="assets/lib/ui/ui-bootstrap-tpls-1.2.4.js"></script>
+    <script src="assets/lib/ui/toaster/toaster.js"></script>
+    <script src="assets/lib/ui/ui-select/select.js"></script>
+    <script src="assets/lib/ui/ui-grid/ui-grid-stable.js"></script>
+    <!--<script src="http://ui-grid.info/release/ui-grid.js"></script>-->
+    <script src="assets/lib/ui/cgBusy/angular-busy.js"></script>
+    <script src="assets/lib/ui/angular-button-spinner/angular-button-spinner.js"></script>
+    <script src="assets/lib/ui/angular-loading-bar/loading-bar.js"></script>
+    
+    <script src="assets/lib/ui/datepicker/datetimepicker.js"></script>
+    <script src="assets/lib/ui/datepicker/datetimepicker.templates.js"></script>
+    <!-- APP -->
+    <script src="assets/app/app.js"></script>
+    
+    <!-- SERVICES & FACTORY -->
+    <script src="assets/app/login/auth.service.js"></script>
+    <script src="assets/app/stock/stock.service.js"></script>
+    <script src="assets/app/login/authInterceptor.service.js"></script>
+    <script src="assets/app/login/webstore.service.js"></script>
+    <script src="assets/app/cobros/cobros.service.js"></script>
+    <script src="assets/app/stock/stock.service.js"></script>
+    <script src="assets/app/articulo/articulos.service.js"></script>    
+    <script src="assets/app/usuario/usuarios.service.js"></script>
+    <script src="assets/app/empresa/empresa.service.js"></script>
+
+    <script src="assets/app/menu/menu.controller.js"></script>
+    <script src="assets/app/articulo/articuloList.controller.js"></script>
+    <script src="assets/app/cobros/consultacobros.controller.js"></script>
+    <script src="assets/app/cobros/cobroservicios.controller.js"></script>
+    <script src="assets/app/cobros/cobroalmacenamiento.controller.js"></script>
+    <script src="assets/app/cobros/mantenedorcobros.controller.js"></script>
+    <script src="assets/app/cobros/mantenedorUF.controller.js"></script>
+    <script src="assets/app/inicio/inicio.controller.js"></script>
+    <script src="assets/app/login/login.controller.js"></script>
+    <script src="assets/app/stock/stockconsulta.controller.js"></script>    
+    <script src="assets/app/stock/stockmovimiento.controller.js"></script>
+    <script src="assets/app/stock/stockentsal.controller.js"></script>
+    <script src="assets/app/usuario/usuario.controller.js"></script>
+    <script src="assets/app/stock/stocklistadoentradassalidas.controller.js"></script>
+   
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿<div class="container-fluid" ng-controller="stockConsulta" >
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Consulta de Stock</h1>
+        <br />
+        <form class="form-horizontal" novalidate name="form">
+            <div class="form-group">
+                <label for="inputType" class="col-md-1 control-label">Artículo</label>
+                <div class="btn-group col-md-4">
+
+                    <ui-select ng-model="articulo.selected" theme="bootstrap" ng-disabled="selectIsDisable" style="min-width: 300px;"
+                            reset-search-input="false">
+                        <ui-select-match placeholder="Todos los artículos">{{$select.selected.descripcion}}</ui-select-match>
+                        <!--<ui-select-choices repeat="articulo in articulos | propsFilter: {descripcion: $select.search, codigo: $select.search}">-->
+                        <ui-select-choices repeat="articulo in articulos"
+                                           refresh="refreshArticulo($select.search)"
+                                           refresh-delay="600">
+                            <div ng-bind-html="articulo.descripcion | highlight: $select.search" class="ellipsis"></div>
+                            <small>
+                                Codigo: <span ng-bind-html="''+articulo.codigo | highlight: $select.search"></span>
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-default" ng-click="limpiarArticuloSelected()">Limpiar</button>
+                </div>
+                <label for="inputType" class="col-md-1 control-label">Bodega</label>
+                <div class="btn-group col-xs-12 col-sm-3 col-md-3">
+                    <select class="form-control" name="bodegas" ng-model="bodega" convert-to-number ng-options="bodega.descripcion for bodega in bodegas">
+                        <option value="">Todas las bodegas</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-8">
+                    <button class="btn btn-success" ng-click="generarInforme()" button-spinner="loading" spinner-icon="fa fa-spinner fa-spin" ng-disabled="loading" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <div class="gridStyle" ui-grid="gridOptions" ng-show="gridVisible"  ui-grid-resize-columns ui-grid-exporter ui-grid-pagination ></div>
+    </div>
+
+</div> <!-- /container -->

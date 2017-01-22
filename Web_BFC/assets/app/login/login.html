@@ -1,0 +1,45 @@
+﻿<div class="container" ng-controller="loginController">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="jumbotron">
+                <div class="text-center">
+                    <h3>Plataforma de autoatención</h3>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <form novalidate name="form">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                                       required ng-maxlength="50" ng-model="loginData.userName"
+                                       ng-class="{ error : form.email.$invalid && (form.email.$touched || form.$submitted)}">
+                                <div ng-messages="form.email.$error" ng-if="form.email.$touched || form.$submitted">
+                                    <p ng-message="maxlength" class="error">Largo mínimo: 50 car.</p>
+                                    <p ng-message="required" class="error">Campo obligatorio.</p>
+                                    <p ng-message="email" class="error">Debe ingresar un Email valido</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                                       required ng-maxlength="50" ng-model="loginData.password"
+                                       ng-class="{ error : form.password.$invalid && (form.password.$touched || form.$submitted)}">
+                                <div ng-messages="form.password.$error" ng-if="form.password.$touched || form.$submitted">
+                                    <p ng-message="maxlength" class="error">Largo mínimo: 50 car.</p>
+                                    <p ng-message="required" class="error">Campo obligatorio.</p>
+                                </div>
+                            </div>
+                            <br />                            
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="login()" 
+                                     button-spinner="loading"  ng-disabled="loading" spinner-icon="fa fa-spinner fa-spin">Ingresar</button>
+                            <!--<a href="http://bevfoodcenter.cl/" class="btn btn-default btn-lg btn-block">
+                                Regresar<img src="assets/img/ic_subdirectory_arrow_left_black_24dp_1x.png" />
+                            </a>-->                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->

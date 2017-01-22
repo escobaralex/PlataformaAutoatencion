@@ -1,0 +1,156 @@
+﻿<div class="container-fluid">
+    <!-- Modal Detalle Cobro -->
+    <script type="text/ng-template" id="detalle-cobro.html">
+        <form class="form-horizontal" novalidate name="bform">
+            <div class="modal-header">
+                <h3 class="modal-title">{{title}}</h3>
+            </div>
+            <div class="modal-body">
+                <uib-tabset active="activeForm">
+                    <uib-tab index="0" heading="Datos Artículo (Requeridos)">
+                        <br />
+                        <ng-form name="form">
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">Código</label>
+                                <div class="btn-group col-md-7">
+                                    <input type="text" name="codigo" placeholder="011002001" class="form-control"
+                                           ng-model="articulo.codigo"
+                                           ng-disabled="disabled || codigoDisabled" required
+                                           ng-maxlength="20"
+                                           ng-class="{ error : form.codigo.$invalid && (form.codigo.$touched || formCrtl)}" />
+                                    <div ng-messages="form.codigo.$error" ng-if="form.codigo.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo máximo: 20 car.</p>
+                                        <p ng-message="required" class="error">Campo obligatorio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">Descripción</label>
+                                <div class="btn-group col-md-7">
+                                    <input type="text" name="descripcion" placeholder="XBO-R 181W/45C OSRAM" class="form-control" ng-model="articulo.descripcion"
+                                           ng-disabled="disabled" required
+                                           ng-maxlength="50"
+                                           ng-class="{ error : form.descripcion.$invalid && (form.descripcion.$touched || formCrtl)}" />
+                                    <div ng-messages="form.descripcion.$error" ng-if="form.descripcion.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo máximo: 50 car.</p>
+                                        <p ng-message="required" class="error">Campo obligatorio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">Unidad de Medida</label>
+                                <div class="btn-group col-md-7">
+                                    <select class="form-control ng-hide" name="unimed" required
+                                            ng-model="articulo.unidadDeMedida" convert-to-number
+                                            ng-options="unidadMedida.codigo for unidadMedida in unidadesDeMedida track by unidadMedida.codigo"
+                                            ng-disabled="disabled" ng-show="aceptarVisible"
+                                            ng-class="{ error : articulo.unidadDeMedida === undefined && (form.unimed.$touched || formCrtl)}"></select>
+                                    <input type="text" name="um-ver" class="form-control ng-hide" ng-disabled="disabled" value="{{articulo.unidadDeMedida}}" ng-show="!aceptarVisible" />
+                                    <div ng-messages="{noUM : articulo.unidadDeMedida === undefined && (form.unimed.$touched || formCrtl)}">
+                                        <p ng-message="noUM" class="error">Debe seleccionar una unidad de medida.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">U/Caja</label>
+                                <div class="btn-group col-md-2">
+                                    <input type="text" name="unicaj" placeholder="12" class="form-control"
+                                           ng-model="articulo.uniXcaja" ng-disabled="disabled" required
+                                           ng-maxlength="5"
+                                           ng-class="{ error : form.unicaj.$invalid && (form.unicaj.$touched || formCrtl)}" />
+                                    <div ng-messages="form.unicaj.$error" ng-if="form.unicaj.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo máx: 5 car.</p>
+                                        <p ng-message="required" class="error">Obligatorio.</p>
+                                    </div>
+                                </div>
+                                <label for="inputType" class="col-md-2 control-label">C/Pallet</label>
+                                <div class="btn-group col-md-2">
+                                    <input type="text" name="cajpallet" placeholder="80" class="form-control"
+                                           ng-model="articulo.cXpallet" ng-disabled="disabled" required
+                                           ng-maxlength="5"
+                                           ng-class="{ error : form.cajpallet.$invalid && (form.cajpallet.$touched || formCrtl)}" />
+                                    <div ng-messages="form.cajpallet.$error" ng-if="form.cajpallet.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo máx: 5 car.</p>
+                                        <p ng-message="required" class="error">Obligatorio.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">Largo * Ancho * Alto</label>
+                                <div class="col-md-2">
+                                    <input type="text" name="largo" placeholder="80" class="form-control"
+                                           ng-model="articulo.largo" ng-disabled="disabled" required
+                                           ng-maxlength="4"
+                                           ng-class="{ error : form.largo.$invalid && (form.largo.$touched || formCrtl)}" />
+                                    <div ng-messages="form.cajpallet.$error" ng-if="form.largo.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo Máx: 4 car.</p>
+                                        <p ng-message="required" class="error">Obligatorio.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="ancho" placeholder="80" class="form-control"
+                                           ng-model="articulo.ancho" ng-disabled="disabled" required
+                                           ng-maxlength="4"
+                                           ng-class="{ error : form.ancho.$invalid && (form.ancho.$touched || formCrtl)}" />
+                                    <div ng-messages="form.ancho.$error" ng-if="form.ancho.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo Máx: 4 car.</p>
+                                        <p ng-message="required" class="error">Obligatorio.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="alto" placeholder="80" class="form-control"
+                                           ng-model="articulo.alto" ng-disabled="disabled" required
+                                           ng-maxlength="4"
+                                           ng-class="{ error : form.alto.$invalid && (form.alto.$touched || formCrtl)}" />
+                                    <div ng-messages="form.alto.$error" ng-if="form.alto.$touched || formCrtl">
+                                        <p ng-message="maxlength" class="error">Largo Máx: 4 car.</p>
+                                        <p ng-message="required" class="error">Obligatorio.</p>
+                                    </div>
+                                </div>
+                                <label class="control-label">(cm)</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-4 control-label">Metros Cúbicos (M3)</label>
+                                <div class="col-md-3">
+                                    <input type="text" name="m3" placeholder="80" class="form-control"
+                                           ng-model="articulo.metrosCubicos" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTyspe" class="col-md-4 control-label">Situación Artículo</label>
+                                <div class="btn-group col-md-7">
+                                    <div class="btn-group">
+                                        <label class="btn btn-default" ng-model="articulo.isActivo" uib-btn-radio="true" uncheckable ng-disabled="disabled">Activo</label>
+                                        <label class="btn btn-default" ng-model="articulo.isActivo" uib-btn-radio="false" uncheckable ng-disabled="disabled">Descontinuo</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-form>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+            <div class="modal-footer">
+                <!--<pre>{{ bform.form | json}}</pre>
+                <pre>{{ bform.form2 | json}}</pre>
+                <pre>{{ articulo | json}}</pre>-->
+                <button class="btn btn-primary" type="button" ng-click="aceptar(bform.form.$valid)" ng-show="aceptarVisible" ng-disabled="disabled">Guardar</button> <!--|| !bform.form.$valid || !bform.form2.$valid-->
+                <button class="btn btn-default" type="button" ng-click="cancelar()">Cancelar</button>
+                <div class="col-md-7 alert-danger ng-hide" role="alert" ng-show="mensaje != undefined && mensaje.length > 2">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{mensaje}}
+                </div>
+            </div>
+        </form>
+    </script>
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Consulta de Cobros</h1>
+        <div class="container-fluid">            
+            <div class="gridStyle" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div> <!---->
+        </div>
+    </div>
+</div> <!-- /container -->

@@ -1,0 +1,228 @@
+﻿<div class="container-fluid" ng-controller="UsuariosController">
+    <!-- Modal Usuario Detalle -->
+    <script type="text/ng-template" id="usuario-detalle.html">
+        <form class="form-horizontal" novalidate name="bform">
+            <div class="modal-header">
+                <h3 class="modal-title">{{title}}</h3>
+            </div>
+            <div class="modal-body">                
+                <uib-tabset active="activeForm">
+                        <uib-tab index="0" heading="Datos Usuario (Requeridos)">
+                            <br />
+                            <ng-form name="form">
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Nombres</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="text" name="nombre" placeholder="Juan Carlos" class="form-control"
+                                               ng-model="usuario.nombres"
+                                               ng-disabled="disabled" required
+                                               ng-maxlength="50"
+                                               ng-class="{ error : form.nombre.$invalid && (form.nombre.$touched || formCrtl)}" />
+                                        <div ng-messages="form.nombre.$error" ng-if="form.nombre.$touched || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 50 car.</p>
+                                            <p ng-message="required" class="error">Campo obligatorio.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Apellidos</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="text" name="apellidos" placeholder="Soto Perez" class="form-control" ng-model="usuario.apellidos"
+                                               ng-disabled="disabled" required
+                                               ng-maxlength="50"
+                                               ng-class="{ error : form.apellidos.$invalid && (form.apellidos.$touched || formCrtl)}" />
+                                        <div ng-messages="form.apellidos.$error" ng-if="form.apellidos.$touched || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 50 car.</p>
+                                            <p ng-message="required" class="error">Campo obligatorio.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Email</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="text" name="email" placeholder="juanc@sotoperez.cl" class="form-control"
+                                               ng-model="usuario.email" ng-disabled="disabled" required
+                                               ng-maxlength="100" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                                               ng-class="{ error : form.email.$invalid && (form.email.$touched || formCrtl)}" />
+                                        <div ng-messages="form.email.$error" ng-if="form.email.$touched || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 100 car.</p>
+                                            <p ng-message="required" class="error">Campo obligatorio.</p>
+                                            <p ng-message="pattern" class="error">Formato de correo inválido.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ng-hide" ng-show="aceptarVisible">
+                                    <label for="inputType" class="col-md-4 control-label">Contraseña</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="password" name="contrasena" placeholder="******" ng-minlength="6"
+                                               ng-maxlength="20" class="form-control" ng-model="usuario.contrasena" ng-disabled="disabled" 
+                                               ng-attr-ng-required="reqContr"
+                                               ng-class="{ error : form.contrasena.$invalid && formCrtl}" />
+                                        <div ng-messages="form.contrasena.$error" ng-if="(form.contrasena.$dirty || formCrtl ) || (form.contrasena.$touched && reqContr)">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 20 car.</p>
+                                            <p ng-message="minlength" class="error">Largo mínimo: 6 car.</p>
+                                            <p ng-message="required" class="error">Campo obligatorio.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ng-hide" ng-show="aceptarVisible">
+                                    <label for="inputType" class="col-md-4 control-label">Repetir contraseña</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="password" name="confirmar" placeholder="******" class="form-control" ng-model="usuario.confirmarContrasena" ng-disabled="disabled"
+                                               ng-class="{ error : form.confirmar.$invalid &&  (form.contrasena.$dirty || formCrtl || form.confirmar.$dirty)}" />
+                                        <div ng-messages="{distintas : usuario.confirmarContrasena != usuario.contrasena && (form.contrasena.$dirty || formCrtl || form.confirmar.$dirty)}">
+                                            <p ng-message="distintas" class="error">Las contraseñas no coinciden.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Rol</label>
+                                    <div class="btn-group col-md-7">
+                                        <select class="form-control ng-hide" name="rol" required
+                                                ng-model="usuario.rol" convert-to-number
+                                                ng-options="rol.name for rol in roles  track by rol.id"
+                                                ng-disabled="disabled" ng-show="aceptarVisible"
+                                                ng-class="{ error : usuario.rol === undefined && (form.rol.$touched || formCrtl)}"></select>
+                                        <input type="text" name="rol-ver" class="form-control ng-hide" ng-disabled="disabled" value="{{usuario.rol.name}}" ng-show="!aceptarVisible" />
+                                        <div ng-messages="{noRol : usuario.rol === undefined && (form.rol.$touched || formCrtl)}">
+                                            <p ng-message="noRol" class="error">Debe seleccionar un Rol.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Empresa</label>
+                                    <div class="btn-group col-md-7">
+                                        <select class="form-control ng-hide" name="empresa" required
+                                                ng-model="usuario.empresa" convert-to-number
+                                                ng-options="empresa.nombre for empresa in empresas  track by empresa.id"
+                                                ng-disabled="disabled" ng-show="aceptarVisible"
+                                                ng-class="{ error : usuario.empresa === undefined && (form.empresa.$touched || formCrtl)}"></select>
+                                        <input type="text" class="form-control ng-hide" ng-disabled="disabled" value="{{usuario.empresa.nombre}}" ng-show="!aceptarVisible" />
+                                        <div ng-messages="{noEmpresa : usuario.empresa === undefined && (form.empresa.$touched || formCrtl)}">
+                                            <p ng-message="noEmpresa" class="error">Debe seleccionar una Empresa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputTyspe" class="col-md-4 control-label">Situación</label>
+                                    <div class="btn-group col-md-7">
+
+                                        <div class="btn-group">
+                                            <label class="btn btn-default" ng-model="usuario.isActivo" uib-btn-radio="true" uncheckable ng-disabled="disabled">Activo</label>
+                                            <label class="btn btn-default" ng-model="usuario.isActivo" uib-btn-radio="false" uncheckable ng-disabled="disabled">Inactivo</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-form>
+                        </uib-tab>
+                        <uib-tab index="1" heading="Otros Datos">
+                            <br />
+                            <ng-form name="form2">
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Dirección</label>
+                                    <div class="btn-group col-md-7">
+                                        <input type="text" name="direccion" placeholder="Pasaje 5, Santiago" ng-maxlength="100" class="form-control" ng-model="usuario.direccion" ng-disabled="disabled" />
+                                        <div ng-messages="form2.direccion.$error" ng-if="form2.direccion.$dirty || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 100 car.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Teléfono</label>
+                                    <div class="btn-group col-md-3">
+                                        <input type="text" name="telefono" placeholder="228505000" class="form-control" ng-maxlength="15" ng-model="usuario.telefono" ng-disabled="disabled" />
+                                        <div ng-messages="form2.telefono.$error" ng-if="form2.telefono.$dirty || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 15 car.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputType" class="col-md-4 control-label">Celular</label>
+                                    <div class="btn-group col-md-3">
+                                        <input type="text" name="celular" placeholder="98505000" class="form-control" ng-maxlength="15" ng-model="usuario.celular" ng-disabled="disabled" />
+                                        <div ng-messages="form2.celular.$error" ng-if="form2.celular.$dirty || formCrtl">
+                                            <p ng-message="maxlength" class="error">Largo máximo: 15 car.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-form>
+                        </uib-tab>
+                    </uib-tabset>                
+                
+            </div>
+            <div class="modal-footer">
+                <!--<pre>{{ bform.form | json}}</pre>
+                <pre>{{ bform.form2 | json}}</pre>
+                <pre>{{ usuario | json}}</pre>-->
+                <button class="btn btn-primary" type="button" ng-click="aceptar(bform.form.$valid,bform.form2.$valid)" ng-show="aceptarVisible" ng-disabled="disabled">Guardar</button> <!--|| !bform.form.$valid || !bform.form2.$valid-->
+                <button class="btn btn-default" type="button" ng-click="cancelar()">Cancelar</button>
+                <div class="col-md-7 alert-danger ng-hide" role="alert" ng-show="mensaje != undefined && mensaje.length > 2">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{mensaje}}
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <!-- Modal Usuario Eliminar -->
+    <script type="text/ng-template" id="usuario-eliminar.html">
+        <div>
+            <div class="modal-header">
+                <h3 class="modal-title">Eliminar Usuario</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" novalidate name="form">
+                    <div class="form-group">
+                        <h4 class="col-md-offset-2 tex-center">¿Esta seguro de querer eliminar al usuario?</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType" class="col-md-3 control-label">Nombres</label>
+                        <div class="btn-group col-md-8">
+                            <input type="text" name="nombre" placeholder="Juan Carlos" disabled class="form-control" ng-model="usuario.nombres" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType" class="col-md-3 control-label">Apellidos</label>
+                        <div class="btn-group col-md-8">
+                            <input type="text" name="apellidos" placeholder="Soto Perez" disabled class="form-control" ng-model="usuario.apellidos" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType" class="col-md-3 control-label">Email</label>
+                        <div class="btn-group col-md-8">
+                            <input type="text" name="email" placeholder="juanc@sotoperez.cl" disabled class="form-control" ng-model="usuario.email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputType" class="col-md-3 control-label">Rol</label>
+                        <div class="btn-group col-md-8">
+                            <input type="text" name="rol" disabled class="form-control" ng-model="usuario.rol.name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType" class="col-md-3 control-label">Empresa</label>
+                        <div class="btn-group col-md-8">
+                            <input type="text" name="empresa" disabled class="form-control" ng-model="usuario.empresa.nombre" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" ng-click="aceptar()">Aceptar</button>
+                <button class="btn btn-default" type="button" ng-click="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </script>
+
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Listado de Usuarios</h1>
+
+        <button class="btn btn-success" style="margin-bottom:10px" ng-click="addUser()"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;Agregar Usuario</button>
+
+        <div class="gridStyle" ui-grid="gridOptions" ng-show="gridVisible" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
+    </div>
+</div> <!-- /container -->

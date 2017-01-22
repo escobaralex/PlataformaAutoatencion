@@ -1,0 +1,111 @@
+body {  
+  padding-top: 70px;
+  background-color:#4e4a49;
+}
+button:focus{
+    outline:0;
+}
+li:focus{
+    outline:0;
+}
+.h1-custom{
+    font-size:28px !important;
+}
+.jumbotron{
+    /*background-color:*/    
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+@media screen and (min-width:768px){
+    .jumbotron {
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+}
+
+.error {
+  border-color: red;
+}
+p.error {
+  color: red;
+  font-size:12px;
+  height:6px
+}
+.negativo{
+    color: red;
+}
+.warning {
+  border-color: yellow;
+}
+.success {
+  border-color: lightgreen;
+  color: rgba(92, 183, 92, 1);
+  
+  font-weight:bold;
+}
+
+/** Evita que el texto salga de la caja **/
+.ui-select-match-text{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 40px;
+}
+.ui-select-toggle > .btn.btn-link {
+  margin-right: 10px;
+  top: 6px;
+  position: absolute;
+  /*right: 10px;*/
+}
+/* redefine la loading bar*/
+#loading-bar .bar {
+  background: #2c3e50;
+}
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  #2c3e50;
+  border-left-color: #2c3e50;
+}
+#loading-bar .peg {
+  -moz-box-shadow: #2c3e50 1px 0 6px 1px;
+  -ms-box-shadow: #2c3e50 1px 0 6px 1px;
+  -webkit-box-shadow: #2c3e50 1px 0 6px 1px;
+  box-shadow: #2c3e50 1px 0 6px 1px;
+}
+.form-group.required { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 38px;
+    top:7px;
+}
+.ng-hide:not(.ng-hide-animate) {
+  /* this is just another form of hiding an element */
+  display: block!important;
+  position: absolute; 
+  /* Se comenta por error que provocaba en el filtro del ui-grid */
+  top: -9999px;
+  left: -9999px;
+}
+.ui-grid-filter-container .ui-grid-filter-button.ng-hide:not(.ng-hide-animate){    
+    left:0; 
+    top:0;
+    right:0;
+    display:none!important;
+}
+.my-well{
+    margin-bottom:0;
+    border-radius:0;
+    border-left:0;
+    border-right:0;
+    border-bottom:0;
+}
+.gridListado{
+    font-size: 12px;
+}
+.ui-grid-invisible{
+    display:none;
+}
+select {
+ text-transform:capitalize;
+}

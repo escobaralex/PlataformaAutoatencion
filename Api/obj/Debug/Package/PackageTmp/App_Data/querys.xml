@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Query>
+  <stringConnection>Data Source=AER-PC\SQLEXPRESS;Initial Catalog=a000_sysges{0};Persist Security Info=True;User ID=sa;Password=198476ers</stringConnection>
+  <GetEmpresas>SELECT * FROM NUCEMP</GetEmpresas>
+  <GetArticulos>
+  SELECT TOP 10 AR_CODART,AR_DESART
+  FROM MAEART
+  WHERE AR_ACTIVO = 1
+</GetArticulos>
+  <SearchArticulos>
+    SELECT TOP 10 AR_CODART,AR_DESART
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_DESART LIKE '%{0}%' OR  AR_CODART LIKE '%{0}%'
+  </SearchArticulos>
+  <ExisteArticulo>
+    SELECT AR_CODART FROM MAEART WHERE AR_CODART = '{0}'
+  </ExisteArticulo>
+  <GetAllArticulos>
+    SELECT AR_CODART,AR_DESART,AR_OBSERV,AR_UNIMED ,AR_ACTIVO FROM MAEART
+  </GetAllArticulos>
+  <ExisteMovExistencia>
+    SELECT TOP 1 LE_TIPDOC FROM LINEXI
+    WHERE LE_CODART = '{0}'
+  </ExisteMovExistencia>
+  <GetUnidadesDeMedida>
+    select tb_codtab, tb_destab, tb_codstr from maetab
+    where tb_tiptab = 80 and tb_codtab > 0
+  </GetUnidadesDeMedida>
+  <GetInfoArticulo>
+    SELECT UnidadesPorCaja
+    ,CajasPorPallet
+    ,Largo
+    ,Ancho
+    ,Alto
+    FROM Articulo
+    WHERE ID_Empresa = {0}
+    AND AR_CODART = '{1}'
+  </GetInfoArticulo>
+  <DeleteArticulo>
+    DELETE FROM MAEART WHERE AR_CODART = '{0}'
+  </DeleteArticulo>
+  
+  <GetStockArticulos>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART),0))
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+  </GetStockArticulos>
+  <GetStockArticulo>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART),0))
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_CODART = '{0}'
+  </GetStockArticulo>
+
+  <GetStockArticulosEnBodega>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART AND sd1_codbod IN ({0})),0)  )
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+  </GetStockArticulosEnBodega>
+  <GetStockArticuloEnBodega>
+    SELECT AR_CODART,AR_DESART, AR_UNIMED,
+    STOCK = (ISNULL ((SELECT SUM(sd1_entrad-sd1_salida) FROM vw_1039_stbd WHERE sd1_codart = AR_CODART AND sd1_codbod IN ({0})),0)  )
+    FROM MAEART
+    WHERE AR_ACTIVO = 1
+    AND AR_CODART = '{1}'
+  </GetStockArticuloEnBodega>
+  
+  <GetBodegas>
+    SELECT tb_codtab, tb_destab FROM MAETAB
+    WHERE tb_tiptab = 18 AND tb_codtab &lt; &gt; 0
+  </GetBodegas>
+  <GetAllUsers>
+    SELECT Id
+    ,Nombres
+    ,Apellidos
+    ,Empresa
+    ,Email
+    ,PhoneNumber
+    ,UserName
+    ,IsActivo
+    ,Celular
+    ,Direccion
+    FROM Usuario
+  </GetAllUsers>
+  <GetFormasCobro>
+    SELECT Id,Nombre   
+    FROM FormaCobro
+  </GetFormasCobro>
+  <GetEmpresasFormasCobros>
+    SELECT IdEmpresa
+    ,IdFormaCobro
+    ,Valor
+    FROM EmpresaFormaCobro
+  </GetEmpresasFormasCobros>
+  <GetUsuarioRol>
+    SELECT UserId,RoleId
+    FROM UserRole
+  </GetUsuarioRol>
+  <GetRoles>
+    SELECT Id,Name
+    FROM Rol
+  </GetRoles>
+</Query>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WEB_BevfoodCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WEB_BevfoodCenter.dbo.CobrosEncabezado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="CobrosEncabezado">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="IdEmpresa" />
+      <PropertyRef Name="Anno" />
+      <PropertyRef Name="Mes" />
+      <PropertyRef Name="Dia" />
+      <PropertyRef Name="PeriodoDesde" />
+      <PropertyRef Name="PeriodoHasta" />
+      <PropertyRef Name="UF" />
+      <PropertyRef Name="FormaCobro" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="IsPublicado" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="IdEmpresa" Type="int" Nullable="false" />
+    <Property Name="Anno" Type="int" Nullable="false" />
+    <Property Name="Mes" Type="int" Nullable="false" />
+    <Property Name="Dia" Type="int" Nullable="false" />
+    <Property Name="PeriodoDesde" Type="datetime" Nullable="false" />
+    <Property Name="PeriodoHasta" Type="datetime" Nullable="false" />
+    <Property Name="UF" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Almacenaje" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CargaPalletizada" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DescargaPalletizada" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FormaCobro" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IsPublicado" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WEB_BevfoodCenter.dbo.DocumentoReferencia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DocumentoReferencia">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CodigoDocumento" />
+      <PropertyRef Name="Descripcion" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoDocumento" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WEB_BevfoodCenter.dbo.Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Date" />
+      <PropertyRef Name="Thread" />
+      <PropertyRef Name="Level" />
+      <PropertyRef Name="Logger" />
+      <PropertyRef Name="Message" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Thread" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Level" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Logger" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Message" Type="varchar" MaxLength="4000" Nullable="false" />
+    <Property Name="Exception" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="ValorCobroEmpresa">
+    <Key>
+      <PropertyRef Name="IdEmpresa" />
+    </Key>
+    <Property Name="IdEmpresa" Type="int" Nullable="false" />
+    <Property Name="MetroCuadrado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="MetroCubico" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PosicionPalet" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ValorDefault" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="WEB_BevfoodCenterModelStoreContainer">
+    <EntitySet Name="ValorCobroEmpresa" EntityType="Self.ValorCobroEmpresa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CobrosEncabezado" EntityType="Self.CobrosEncabezado" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CobrosEncabezado].[Id] AS [Id], 
+    [CobrosEncabezado].[IdEmpresa] AS [IdEmpresa], 
+    [CobrosEncabezado].[Anno] AS [Anno], 
+    [CobrosEncabezado].[Mes] AS [Mes], 
+    [CobrosEncabezado].[Dia] AS [Dia], 
+    [CobrosEncabezado].[PeriodoDesde] AS [PeriodoDesde], 
+    [CobrosEncabezado].[PeriodoHasta] AS [PeriodoHasta], 
+    [CobrosEncabezado].[UF] AS [UF], 
+    [CobrosEncabezado].[Almacenaje] AS [Almacenaje], 
+    [CobrosEncabezado].[CargaPalletizada] AS [CargaPalletizada], 
+    [CobrosEncabezado].[DescargaPalletizada] AS [DescargaPalletizada], 
+    [CobrosEncabezado].[FormaCobro] AS [FormaCobro], 
+    [CobrosEncabezado].[Cantidad] AS [Cantidad], 
+    [CobrosEncabezado].[IsPublicado] AS [IsPublicado]
+    FROM [dbo].[CobrosEncabezado] AS [CobrosEncabezado]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DocumentoReferencia" EntityType="Self.DocumentoReferencia" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DocumentoReferencia].[Id] AS [Id], 
+    [DocumentoReferencia].[CodigoDocumento] AS [CodigoDocumento], 
+    [DocumentoReferencia].[Descripcion] AS [Descripcion]
+    FROM [dbo].[DocumentoReferencia] AS [DocumentoReferencia]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Log" EntityType="Self.Log" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Log].[Id] AS [Id], 
+    [Log].[Date] AS [Date], 
+    [Log].[Thread] AS [Thread], 
+    [Log].[Level] AS [Level], 
+    [Log].[Logger] AS [Logger], 
+    [Log].[Message] AS [Message], 
+    [Log].[Exception] AS [Exception]
+    FROM [dbo].[Log] AS [Log]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

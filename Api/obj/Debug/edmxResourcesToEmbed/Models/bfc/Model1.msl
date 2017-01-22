@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WEB_BevfoodCenterModelStoreContainer" CdmEntityContainer="WEB_BevfoodCenterEntities">
+    <EntitySetMapping Name="CobrosEncabezado">
+      <EntityTypeMapping TypeName="WEB_BevfoodCenterModel.CobrosEncabezado">
+        <MappingFragment StoreEntitySet="CobrosEncabezado">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="PeriodoDesde" ColumnName="PeriodoDesde" />
+          <ScalarProperty Name="PeriodoHasta" ColumnName="PeriodoHasta" />
+          <ScalarProperty Name="UF" ColumnName="UF" />
+          <ScalarProperty Name="Almacenaje" ColumnName="Almacenaje" />
+          <ScalarProperty Name="CargaPalletizada" ColumnName="CargaPalletizada" />
+          <ScalarProperty Name="DescargaPalletizada" ColumnName="DescargaPalletizada" />
+          <ScalarProperty Name="FormaCobro" ColumnName="FormaCobro" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="IsPublicado" ColumnName="IsPublicado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentoReferencia">
+      <EntityTypeMapping TypeName="WEB_BevfoodCenterModel.DocumentoReferencia">
+        <MappingFragment StoreEntitySet="DocumentoReferencia">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodigoDocumento" ColumnName="CodigoDocumento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Log">
+      <EntityTypeMapping TypeName="WEB_BevfoodCenterModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Thread" ColumnName="Thread" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Logger" ColumnName="Logger" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ValorCobroEmpresa">
+      <EntityTypeMapping TypeName="WEB_BevfoodCenterModel.ValorCobroEmpresa">
+        <MappingFragment StoreEntitySet="ValorCobroEmpresa">
+          <ScalarProperty Name="ValorDefault" ColumnName="ValorDefault" />
+          <ScalarProperty Name="PosicionPalet" ColumnName="PosicionPalet" />
+          <ScalarProperty Name="MetroCubico" ColumnName="MetroCubico" />
+          <ScalarProperty Name="MetroCuadrado" ColumnName="MetroCuadrado" />
+          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,42 @@
+﻿<div class="container-fluid" ng-controller="CobroAlmacenamientoController">
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Cobros por almacenamiento</h1>
+        <div class="container-fluid">
+            <form class="form-inline" novalidate>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br />
+                        <div class="form-group col-md-2">
+                            <label for="valor">Mes &nbsp; &nbsp;</label>
+                            <select class="form-control" name="ano" ng-model="anoSelected" ng-disabled="formDisabled" style="min-width:120px"
+                                    ng-options="ano as ano for ano in anos track by ano">
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="valor">Año &nbsp; &nbsp;</label>
+                            <select class="form-control" name="mes" ng-model="mesSelected" ng-disabled="formDisabled" style="min-width:120px"
+                                    ng-options="mes as mes for mes in meses track by mes">                                
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success" ng-disabled="formDisabled" ng-click="GetCobroAlmacenamiento()"
+                                button-spinner="loading" spinner-icon="fa fa-spinner fa-spin">
+                            Obtener información
+                        </button>
+                        <button type="submit" class="btn btn-default ng-hide" ng-click="clear()" ng-show="showReport"
+                                button-spinner="isGuardar" spinner-icon="fa fa-spinner fa-spin">
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+                <br />
+                <div class="row ng-hide" ng-show="showReport">
+                    <div class="col-md-12">
+                        <pre>{{ results | json}}</pre>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div> <!-- /container -->

@@ -1,0 +1,68 @@
+﻿<div id="navbar" class="navbar-collapse collapse menutop ng-hide" ng-controller="menuController" ng-hide="!visible" ng-cloak>    
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-form navbar-left ng-hide" role="search" ng-show="isAdmin || isOperador">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="empresa.nombre" disabled>
+            </div>
+            <button type="submit" class="btn btn-default ng-hide" ng-click="changeEmpresa()" ng-show="!isCliente">Cambiar</button>
+        </li>
+        <!--<li ui-sref-active="active"><a ui-sref="inicio" ng-click="loadingInicio = true"><i class="fa fa-home"></i>&nbsp;Inicio <span class="sr-only">(current)</span></a></li>-->
+        <li class="dropdown">
+            <a ui-sref="no-enrutar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cubes"></i>&nbsp;Stock&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li ui-sref-active="active"><a ui-sref="stockconsulta">Consulta de Stock</a></li>
+                <li ui-sref-active="active"><a ui-sref="stockentradassalidas">Consulta de entradas y salidas</a></li>
+                <li ui-sref-active="active"><a ui-sref="stocklistadoentradassalidas">Listado de entradas y salidas</a></li>
+                <li role="separator" class="divider" ng-hide="isCliente"></li>
+                <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="stockmovimiento">Movimiento de Stock</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a ui-sref="no-enrutar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-money"></i>&nbsp;Cobros&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li ui-sref-active="active"><a ui-sref="consultacobros">Consulta de cobros</a></li>
+                <li role="separator" class="divider" ng-hide="isCliente"></li>
+                <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="cobroservicios">Cobro de Servicios (PxQ)</a></li>
+                <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="cobroalmacenamiento">Cobro por Almacenamiento</a></li>
+                <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="mantenedorcobros">Valor por Almacenamiento</a></li>
+                <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="mantenedoruf">Mantenedor UF</a></li>
+            </ul>
+        </li>
+        <li ui-sref-active="active" ng-hide="isCliente || isOperador"><a ui-sref="usuarios"><i class="fa fa-users"></i>&nbsp;Usuarios</a></li>
+        <li ui-sref-active="active" ng-hide="isCliente"><a ui-sref="articulos"><i class="fa fa-barcode"></i>&nbsp;Articulos</a></li>
+        <li class="dropdown">
+            <a ui-sref="no-enrutar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ usuario.nombre }} &nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-header"><i class="fa fa-building"></i>&nbsp;{{empresa.nombre}}</li>
+                <li class="dropdown-header"><i class="fa fa-envelope-o"></i>&nbsp;{{ usuario.email}}</li>
+                <li class="dropdown-header"><i class="fa fa-key"></i>&nbsp;{{usuario.rol}}</li>
+                <li role="separator" class="divider"></li>
+                <li ui-sref-active="active"><a ui-sref="no-enrutar" ng-click="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;&nbsp;Salir</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Modal cambio empresa -->
+    <script type="text/ng-template" id="cambio-empresa.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Cambio de Empresa</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" novalidate name="form">
+                <div class="form-group">
+                    <label for="inputType" class="col-md-2 col-md-offset-1 control-label">Empresas</label>
+                    <div class="col-md-7">
+                        <select class="form-control" name="bodegas" ng-model="empresa"
+                                convert-to-number ng-options="empresa.nombre for empresa in empresas">
+                            <option value="">Seleccione una empresa</option>
+                        </select>
+                        <p class="error ng-hide" ng-show="mostrarError">Debe seleccionar una empresa.</p>
+                    </div>
+                </div>               
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="aceptar()">Cambiar</button>
+            <button class="btn btn-default" type="button" ng-click="cancelar()">Cancelar</button>
+        </div>
+    </script>
+</div><!--/.nav-collapse -->

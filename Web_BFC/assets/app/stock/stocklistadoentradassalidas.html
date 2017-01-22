@@ -1,0 +1,77 @@
+﻿<div class="container-fluid" ng-controller="StockListadoEntradasSalidasController">
+    
+    <div class="jumbotron">
+        <h1 style="font-size:28px">Listado de Entradas y Salidas por Art&iacute;culo</h1>
+        <br />
+        <form class="" novalidate name="form">
+            <div class="row">
+                <div class="form-group col-md-4" ng-class="{ 'has-error': form.articulo.$invalid  && (form.articulo.$touched || form.$submitted )}">
+                    <label for="inputType" class="control-label">Artículo</label>
+                    <div>
+                        <ui-select ng-model="articulo.selected" theme="bootstrap" ng-disabled="formDisable"
+                                   reset-search-input="false" name="articulo">
+                            <ui-select-match placeholder="Todos los artículos">{{$select.selected.descripcion}}</ui-select-match>
+                            <ui-select-choices repeat="articulo in articulos" 
+                                               refresh="refreshArticulo($select.search)"
+                                               ng-maxlength="20"                                               
+                                               required>
+                                <div ng-bind-html="articulo.descripcion | highlight: $select.search" class="ellipsis"></div>
+                                <small>
+                                    Codigo: <span ng-bind-html="''+articulo.codigo | highlight: $select.search"></span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div ng-messages="form.articulo.$error" ng-if="form.articulo.$touched || form.$submitted">
+                            <p ng-message="maxlength" class="error">Largo máximo: 20 car.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label class="control-label">Fecha desde</label>
+                    <div class="dropdown" style="width: 140px">
+                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" ui-sref="no-enrutar" ng-disabled="loading || formDisable">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" value="{{fchDesde | date:'dd-MM-yyyy'}}" ng-disabled="loading || formDisable">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="fchDesde" data-datetimepicker-config="{ dropdownSelector: '#dropdown1',startView:'day', minView:'day'}" data-before-render="beforeRenderStartDate($view, $dates, $leftDate, $upDate, $rightDate)" />
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Fecha hasta</label>
+                    <div class="dropdown" style="width: 140px">
+                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" ui-sref="no-enrutar">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" value="{{fchHasta | date:'dd-MM-yyyy'}}" ng-disabled="loading || formDisable">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="fchHasta" data-datetimepicker-config="{ dropdownSelector: '#dropdown2',startView:'day', minView:'day'}" data-before-render="beforeRenderEndDate($view, $dates, $leftDate, $upDate, $rightDate)" />
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="inputType" class="control-label" style="color:transparent">Generar</label>
+                    <div>
+                        <button class="btn btn-success" ng-click="generarInforme()" button-spinner="loading" spinner-icon="fa fa-spinner fa-spin" ng-disabled="loading || formDisable">Generar</button>                    
+                        <button class="btn btn-default" ng-click="clear()" button-spinner="loading" spinner-icon="fa fa-spinner fa-spin" ng-disabled="loading">Limpiar</button>
+                    </div>                 
+                </div>
+            </div>
+            <br />
+            
+            <h4 ng-show="tableVisible" class="ng-hide" style="display:inline-block">{{informe.mensaje}}</h4>
+            <div style="display:inline-block; margin-left:20px" class="ng-hide" ng-show="tableVisible">
+                <button class="btn btn-success" ng-click="exportAllExcel()">Exportar a Excel</button>
+            </div>
+            <div class="gridListado" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination ng-show="tableVisible" ui-grid-grouping ></div>
+            <div id="tabla-export">
+            </div>
+        </form>
+    </div>
+</div> <!-- /container -->
